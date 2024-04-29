@@ -25,7 +25,10 @@ public class ApplicationConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/**").allowedOrigins(
+                        "http://localhost:4200",
+                        "https://jolly-grass-0248a7b03.5.azurestaticapps.net"
+                );
             }
         };
     }
