@@ -15,7 +15,9 @@ import java.util.UUID;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
+
+    private String humanReadableURL;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -23,7 +25,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private int price;
+    private double price;
 
     private int stock;
 
