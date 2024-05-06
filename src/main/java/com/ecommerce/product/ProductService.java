@@ -2,6 +2,7 @@ package com.ecommerce.product;
 
 import com.ecommerce.auth.utils.ProductUtil;
 import com.ecommerce.product.dtos.ProductDetailsDTO;
+import com.ecommerce.product.dtos.ProductListDTO;
 import com.ecommerce.product.dtos.ProductListItemDTO;
 import com.ecommerce.product.entities.Product;
 import com.ecommerce.product.repositories.ProductRepository;
@@ -50,11 +51,15 @@ public class ProductService {
         return adjective + " " + noun + " " + index;
     }
 
-    public List<ProductListItemDTO> getProducts(int offset, int pageSize) {
-        Page<Product> products =  productRepository.findAll(PageRequest.of(offset, pageSize));
-        return products.stream()
+    public ProductListDTO getProducts(int pageNumber, int pageSize) {
+        Page<Product> productPage =  productRepository.findAll(PageRequest.of(pageNumber, pageSize));
+        List<ProductListItemDTO> products = productPage.stream()
                 .filter(product -> product.getStock() > 0)
                 .map(ProductListItemDTO::fromEntity).toList();
+        return ProductListDTO.builder()
+                .items(products)
+                .totalElements(productPage.getTotalElements())
+                .build();
     }
 
     public ProductDetailsDTO getProductDetails(String url) {

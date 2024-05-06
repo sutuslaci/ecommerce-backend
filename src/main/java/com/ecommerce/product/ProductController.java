@@ -1,6 +1,7 @@
 package com.ecommerce.product;
 
 import com.ecommerce.product.dtos.ProductDetailsDTO;
+import com.ecommerce.product.dtos.ProductListDTO;
 import com.ecommerce.product.dtos.ProductListItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductListItemDTO>> getProducts(@RequestParam int offset, @RequestParam int pageSize) {
-        List<ProductListItemDTO> products = productService.getProducts(offset, pageSize);
+    public ResponseEntity<ProductListDTO> getProducts(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        ProductListDTO products = productService.getProducts(pageNumber, pageSize);
         return ResponseEntity.ok(products);
     }
 
